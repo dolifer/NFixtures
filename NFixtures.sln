@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3E6C0468-CD22-471D-BFF0-BEA3A7DA0230}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C5A3C54C-FA2C-4F84-8273-F226A7F51C87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFixtures.WebApi", "src\NFixtures.WebApi\NFixtures.WebApi.csproj", "{9B3F3EC3-1485-4E0B-A7BC-3C96312973A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFixtures.Containers", "src\NFixtures.Containers\NFixtures.Containers.csproj", "{255F6577-A8C6-4179-8E3A-9F3E38F50E9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B3F3EC3-1485-4E0B-A7BC-3C96312973A2} = {3E6C0468-CD22-471D-BFF0-BEA3A7DA0230}
+		{255F6577-A8C6-4179-8E3A-9F3E38F50E9A} = {3E6C0468-CD22-471D-BFF0-BEA3A7DA0230}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B3F3EC3-1485-4E0B-A7BC-3C96312973A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B3F3EC3-1485-4E0B-A7BC-3C96312973A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B3F3EC3-1485-4E0B-A7BC-3C96312973A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B3F3EC3-1485-4E0B-A7BC-3C96312973A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{255F6577-A8C6-4179-8E3A-9F3E38F50E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{255F6577-A8C6-4179-8E3A-9F3E38F50E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{255F6577-A8C6-4179-8E3A-9F3E38F50E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{255F6577-A8C6-4179-8E3A-9F3E38F50E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
