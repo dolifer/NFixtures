@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using NFixtures.WebApi.Configuration;
 using NFixtures.WebApi.Constants;
 using NFixtures.WebApi.Helpers;
@@ -26,9 +27,19 @@ namespace NFixtures.WebApi.Extensions
                 throw new ArgumentNullException(nameof(client));
             }
 
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(userName));
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(password));
+            }
+
             var basicAuthCredentials = BasicAuthOptions.GetHeaderValue(userName, password);
 
-            return client.WithFormattedHeader(FormatStrings.BasicScheme, basicAuthCredentials);
+            return client.WithFormattedHeader(FormatStrings.Authorization.Basic, basicAuthCredentials);
         }
 
         public static HttpClient WithJwtBearer(this HttpClient client, SecurityTokenDescriptor securityTokenDescriptor)
@@ -54,7 +65,7 @@ namespace NFixtures.WebApi.Extensions
 
             if (string.IsNullOrWhiteSpace(bearerToken)) throw new ArgumentNullException(nameof(bearerToken));
 
-            return client.WithFormattedHeader(FormatStrings.BearerScheme, bearerToken);
+            return client.WithFormattedHeader(FormatStrings.Authorization.Bearer, bearerToken);
         }
 
         public static HttpClient WithHeader(this HttpClient client, string name, string value)
@@ -64,7 +75,7 @@ namespace NFixtures.WebApi.Extensions
             return client;
         }
 
-        private static HttpClient WithFormattedHeader(this HttpClient client, string formatString, string value) 
-            => client.WithHeader(KnownHttpHeaders.Authorization, string.Format(formatString, value));
+        private static HttpClient WithFormattedHeader(this HttpClient client, string formatString, string value)
+            => client.WithHeader(HeaderNames.Authorization, string.Format(formatString, value));
     }
 }

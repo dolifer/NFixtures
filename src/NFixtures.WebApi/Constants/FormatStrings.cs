@@ -2,7 +2,10 @@ namespace NFixtures.WebApi.Constants
 {
     public static class FormatStrings
     {
-        public const string BasicScheme = "Basic {0}";
-        public const string BearerScheme = "Bearer {0}";
+        public static class Authorization
+        {
+            public const string Basic = "Basic {0}";
+            public const string Bearer = "Bearer {0}";
+        }
     }
 }
