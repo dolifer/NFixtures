@@ -15,6 +15,7 @@ namespace NFixtures.xUnit
         /// </summary>
         public NamedTestCase()
         {
+            Name = typeof(TParameters).Name;
         }
 
         /// <summary>
@@ -23,10 +24,11 @@ namespace NFixtures.xUnit
         /// <param name="parameters">Typed parameters.</param>
         /// <param name="name">The name of test case.</param>
         public NamedTestCase(TParameters parameters, string name = null)
-            : this()
         {
             Parameters = parameters;
-            Name = name;
+            Name = string.IsNullOrWhiteSpace(name)
+                ? Parameters?.ToString() ?? "null"
+                : name;
         }
 
         /// <summary>
@@ -80,15 +82,7 @@ namespace NFixtures.xUnit
         }
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            if (string.IsNullOrWhiteSpace(Name))
-            {
-                return Parameters?.ToString() ?? "null";
-            }
-
-            return Name;
-        }
+        public override string ToString() => Name;
 
         public static implicit operator object[](NamedTestCase<TParameters> src) => src?.FromNamedTestCase();
 

@@ -1,8 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using MassTransit;
 using NFixtures.xUnit.MassTransit;
 using NFixtures.xUnit.Tests.MassTransit.Messages;
-using Shouldly;
 using Xunit;
 
 namespace NFixtures.xUnit.Tests.MassTransit
@@ -13,21 +13,37 @@ namespace NFixtures.xUnit.Tests.MassTransit
 
         public PublishReceiveTests(PublishSubscribeFixture fixture)
         {
-            _fixture = fixture;
+            _fixture = fixture ?? throw new ArgumentNullException(nameof(fixture));
         }
 
         [Fact]
         public async Task Received_Message_IsCorrect()
         {
             // arrange
-            var message = new PingMessage();
+            var service = new PingService(_fixture.Bus);
 
             // act
-            await _fixture.Bus.Publish(message);
+            await service.PingAsync();
             ConsumeContext<PingMessage> context = await _fixture.Received;
 
             // assert
-            context.Message.CorrelationId.ShouldBe(message.CorrelationId);
+            Assert.NotNull(context);
+            Assert.NotNull(context.Message);
+        }
+    }
+
+    public class PingService
+    {
+        private readonly IBus _bus;
+
+        public PingService(IBus bus)
+        {
+            _bus = bus ?? throw new ArgumentNullException(nameof(bus));
+        }
+
+        public async Task PingAsync()
+        {
+            await _bus.Publish(new PingMessage());
         }
     }
 
