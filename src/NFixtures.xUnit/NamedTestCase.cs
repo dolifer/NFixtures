@@ -1,5 +1,5 @@
 using System;
-using System.Text.Json;
+using NFixtures.xUnit.Infrastructure;
 using Xunit.Abstractions;
 
 namespace NFixtures.xUnit
@@ -65,8 +65,8 @@ namespace NFixtures.xUnit
                 throw new ArgumentNullException(nameof(info));
             }
 
-            Parameters = JsonSerializer.Deserialize<TParameters>(info.GetValue<string>(nameof(Parameters)));
-            Name = JsonSerializer.Deserialize<string>(info.GetValue<string>(nameof(Name)));
+            Parameters = ValueSerializer.FromJson<TParameters>(info.GetValue<string>(nameof(Parameters)));
+            Name = ValueSerializer.FromJson<string>(info.GetValue<string>(nameof(Name)));
         }
 
         /// <inheritdoc/>
@@ -77,8 +77,8 @@ namespace NFixtures.xUnit
                 throw new ArgumentNullException(nameof(info));
             }
 
-            info.AddValue(nameof(Parameters), JsonSerializer.Serialize(Parameters));
-            info.AddValue(nameof(Name), JsonSerializer.Serialize(Name));
+            info.AddValue(nameof(Parameters), ValueSerializer.ToJson(Parameters));
+            info.AddValue(nameof(Name), ValueSerializer.ToJson(Name));
         }
 
         /// <inheritdoc/>

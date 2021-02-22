@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NFixtures.Containers
+﻿namespace NFixtures.Containers
 {
     public class ContainerFixture<TContainer>
         where TContainer : class

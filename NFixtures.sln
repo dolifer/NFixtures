@@ -14,6 +14,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFixtures.xUnit.Tests", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFixtures.xUnit.MassTransit", "src\NFixtures.xUnit.MassTransit\NFixtures.xUnit.MassTransit.csproj", "{3480FFCD-45AC-4C1C-8C6E-8B7227E20037}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{1F6D922F-C292-4703-B0FD-52FDC3474356}"
+ProjectSection(SolutionItems) = preProject
+	.editorconfig = .editorconfig
+	Custom.ruleset = Custom.ruleset
+	Directory.Build.props = Directory.Build.props
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_build", "_build\_build.csproj", "{3890CDAC-C4CB-4F50-90E8-8C1E56424509}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +34,7 @@ Global
 		{B29B0924-2A25-41CC-9CB5-503DA89A31BB} = {3E6C0468-CD22-471D-BFF0-BEA3A7DA0230}
 		{A284F0EB-6C61-453C-9DCE-29836CF380D4} = {C5A3C54C-FA2C-4F84-8273-F226A7F51C87}
 		{3480FFCD-45AC-4C1C-8C6E-8B7227E20037} = {3E6C0468-CD22-471D-BFF0-BEA3A7DA0230}
+		{3890CDAC-C4CB-4F50-90E8-8C1E56424509} = {1F6D922F-C292-4703-B0FD-52FDC3474356}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9B3F3EC3-1485-4E0B-A7BC-3C96312973A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -47,5 +57,7 @@ Global
 		{3480FFCD-45AC-4C1C-8C6E-8B7227E20037}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3480FFCD-45AC-4C1C-8C6E-8B7227E20037}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3480FFCD-45AC-4C1C-8C6E-8B7227E20037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3890CDAC-C4CB-4F50-90E8-8C1E56424509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3890CDAC-C4CB-4F50-90E8-8C1E56424509}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal

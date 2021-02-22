@@ -1,5 +1,10 @@
 <Project>
+  <!-- Import parent Directory.build.props -->
+  <Import Project="../../../Directory.Build.props" />
   <PropertyGroup>
     <CodeAnalysisRuleSet>Custom.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWarn>CS1591;SA1633</NoWarn>
   </PropertyGroup>
 </Project>

@@ -1,26 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
 namespace NFixtures.xUnit.Tests
 {
     public class NamedTestCaseTests
     {
-        [Fact]
-        [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull")]
-        public void Operator_Test_NullValue()
-        {
-            // arrange
-            NamedTestCase<int> testCase = null;
-
-            // act
-            object[] values = testCase;
-
-            // assert
-            Assert.Null(values);
-        }
-
         [Fact]
         public void Operator_Test()
         {
@@ -71,6 +56,58 @@ namespace NFixtures.xUnit.Tests
 
             Assert.Equal("Object", testCase.Name);
             Assert.Equal("Object", testCase.ToString());
+        }
+
+        [Fact]
+        public void Default_Naming_Convention_Int()
+        {
+            // arrange
+            var testCase = new NamedTestCase<int>(1);
+
+            // assert
+            Assert.NotNull(testCase.Name);
+
+            Assert.Equal("1", testCase.Name);
+            Assert.Equal("1", testCase.ToString());
+        }
+
+        [Fact]
+        public void Default_Naming_Convention_Double()
+        {
+            // arrange
+            var testCase = new NamedTestCase<double>(1.2d);
+
+            // assert
+            Assert.NotNull(testCase.Name);
+
+            Assert.Equal("1.2", testCase.Name);
+            Assert.Equal("1.2", testCase.ToString());
+        }
+
+        [Fact]
+        public void Default_Naming_Convention_Decimal()
+        {
+            // arrange
+            var testCase = new NamedTestCase<decimal>(1.2m);
+
+            // assert
+            Assert.NotNull(testCase.Name);
+
+            Assert.Equal("1.2", testCase.Name);
+            Assert.Equal("1.2", testCase.ToString());
+        }
+
+        [Fact]
+        public void Default_Naming_Convention_Long()
+        {
+            // arrange
+            var testCase = new NamedTestCase<long>(123L);
+
+            // assert
+            Assert.NotNull(testCase.Name);
+
+            Assert.Equal("123", testCase.Name);
+            Assert.Equal("123", testCase.ToString());
         }
 
         [Fact]
