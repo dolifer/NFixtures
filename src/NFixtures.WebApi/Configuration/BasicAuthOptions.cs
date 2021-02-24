@@ -15,15 +15,15 @@ namespace NFixtures.WebApi.Configuration
         {
             if (string.IsNullOrWhiteSpace(userName))
             {
-                throw new ArgumentException(nameof(userName));
+                throw new ArgumentException(FormatStrings.ValueCanNotBeNull, nameof(userName));
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentException(nameof(password));
+                throw new ArgumentException(FormatStrings.ValueCanNotBeNull, nameof(password));
             }
 
-            string credentials = $"{userName}:{password}";
+            var credentials = $"{userName}:{password}";
             return Convert.ToBase64String(Encoding.GetBytes(credentials));
         }
     }

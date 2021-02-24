@@ -1,7 +1,9 @@
 ﻿namespace NFixtures.Containers
 {
-    public class ContainerFixture<TContainer>
-        where TContainer : class
+    /// <summary>
+    /// Represents test container fixture.
+    /// </summary>
+    public abstract class ContainerFixture
     {
     }
 }

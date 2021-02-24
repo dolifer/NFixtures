@@ -24,7 +24,7 @@ namespace NFixtures.xUnit.Tests.MassTransit
 
             // act
             await service.PingAsync();
-            ConsumeContext<PingMessage> context = await _fixture.Received;
+            var context = await _fixture.Received;
 
             // assert
             Assert.NotNull(context);

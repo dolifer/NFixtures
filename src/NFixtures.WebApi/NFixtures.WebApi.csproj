@@ -7,4 +7,17 @@
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
         <PackageReference Include="xunit" Version="2.4.1" />
     </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="FormatStrings.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>FormatStrings.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="FormatStrings.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>FormatStrings.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

@@ -4,7 +4,6 @@ using System.Net.Http;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using NFixtures.WebApi.Configuration;
-using NFixtures.WebApi.Constants;
 using NFixtures.WebApi.Helpers;
 
 namespace NFixtures.WebApi.Extensions
@@ -30,17 +29,17 @@ namespace NFixtures.WebApi.Extensions
 
             if (string.IsNullOrWhiteSpace(userName))
             {
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(userName));
+                throw new ArgumentException(FormatStrings.ValueCanNotBeNull, nameof(userName));
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(password));
+                throw new ArgumentException(FormatStrings.ValueCanNotBeNull, nameof(password));
             }
 
-            string basicAuthCredentials = BasicAuthOptions.GetHeaderValue(userName, password);
+            var basicAuthCredentials = BasicAuthOptions.GetHeaderValue(userName, password);
 
-            return client.WithFormattedHeader(FormatStrings.Authorization.Basic, basicAuthCredentials);
+            return client.WithFormattedHeader(FormatStrings.Authorization_Basic, basicAuthCredentials);
         }
 
         public static HttpClient WithJwtBearer(this HttpClient client, SecurityTokenDescriptor securityTokenDescriptor)
@@ -52,7 +51,7 @@ namespace NFixtures.WebApi.Extensions
 
         public static HttpClient WithJwtBearer(this HttpClient client, SecurityToken securityToken)
         {
-            string jwtToken = JwtTokenHelper.SecurityTokenHandler.WriteToken(securityToken);
+            var jwtToken = JwtTokenHelper.SecurityTokenHandler.WriteToken(securityToken);
 
             return client.WithJwtBearer(jwtToken);
         }
@@ -69,7 +68,7 @@ namespace NFixtures.WebApi.Extensions
                 throw new ArgumentNullException(nameof(bearerToken));
             }
 
-            return client.WithFormattedHeader(FormatStrings.Authorization.Bearer, bearerToken);
+            return client.WithFormattedHeader(FormatStrings.Authorization_Bearer, bearerToken);
         }
 
         public static HttpClient WithHeader(this HttpClient client, string name, string value)

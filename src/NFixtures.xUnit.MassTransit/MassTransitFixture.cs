@@ -17,7 +17,7 @@ namespace NFixtures.xUnit.MassTransit
         protected InMemoryTestHarness InMemoryTestHarness { get; }
 
         /// <summary>
-        /// Gets the <see cref="IBus"/>
+        /// Gets the <see cref="IBus"/>.
         /// </summary>
         public IBus Bus => InMemoryTestHarness.Bus;
 
@@ -40,10 +40,18 @@ namespace NFixtures.xUnit.MassTransit
             InMemoryTestHarness.OnConfigureInMemoryReceiveEndpoint += ConfigureInMemoryReceiveEndpoint;
         }
 
+        /// <summary>
+        /// Used to configure InMemory bus factory in your tests.
+        /// </summary>
+        /// <param name="configurator">Bus factory configurator.</param>
         protected virtual void ConfigureInMemoryBus(IInMemoryBusFactoryConfigurator configurator)
         {
         }
 
+        /// <summary>
+        /// Used to configure InMemory receive endpoint in your tests.
+        /// </summary>
+        /// <param name="configurator">Receive endpoint configurator.</param>
         protected virtual void ConfigureInMemoryReceiveEndpoint(IInMemoryReceiveEndpointConfigurator configurator)
         {
         }

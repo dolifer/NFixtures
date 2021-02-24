@@ -127,7 +127,7 @@ namespace NFixtures.xUnit.Tests
         public void WithName_Sets_Value()
         {
             // arrange
-            NamedTestCase<object> testCase = new NamedTestCase<object>().WithName("name");
+            var testCase = new NamedTestCase<object>().WithName("name");
 
             // assert
             Assert.NotNull(testCase.Name);
