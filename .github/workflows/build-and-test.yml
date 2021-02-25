@@ -1,11 +1,10 @@
-name: continuous
+name: Build & Test
 
 on: [push]
 
 jobs:
   windows-latest:
-    name: windows-latest
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-dotnet@v1

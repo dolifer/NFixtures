@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using _build;
 using Nuke.Common;
 using Nuke.Common.CI;
@@ -77,6 +78,8 @@ class Build : NukeBuild
     IEnumerable<Project> TestProjects => TestPartition.GetCurrent(Solution.GetProjects("*Tests"));
     static AbsolutePath CoverageReportDirectory => ArtifactsDirectory / "coverage-report";
 
+    [Parameter] string NugetApiUrl = "https://nuget.pkg.github.com/dolifer/index.json"; //default
+
     Target Test => _ => _
         .DependsOn(Compile)
         .Executes(() =>
@@ -95,6 +98,21 @@ class Build : NukeBuild
                     .SetLogger(
                         $"junit;LogFilePath={JunitResultDirectory}/{v.Name}.xml;MethodFormat=Class;FailureBodyFormat=Verbose")
                     .SetCoverletOutput($"{CoverletResultDirectory}/{v.Name}.xml")));
+        });
+
+    Target NugetPublish => _ => _
+        .Executes(() =>
+        {
+            SourceDirectory.GlobFiles("*.nupkg")
+                .NotEmpty()
+                .ForEach(x =>
+                {
+                    DotNetNuGetPush(s => s
+                        .SetTargetPath(x)
+                        .SetSource(NugetApiUrl)
+                        .SetApiKey(GitHubToken)
+                    );
+                });
         });
 
     Target Coverage => _ => _
