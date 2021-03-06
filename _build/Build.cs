@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using _build;
 using Nuke.Common;
 using Nuke.Common.CI;
-using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Execution;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
@@ -19,13 +17,6 @@ using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
 
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
-[GitHubActions(
-    "continuous",
-    GitHubActionsImage.WindowsLatest,
-    AutoGenerate = false,
-    On = new[] {GitHubActionsTrigger.Push},
-    InvokedTargets = new[] {nameof(Coverage)},
-    ImportGitHubTokenAs = nameof(GitHubToken))]
 class Build : NukeBuild
 {
     [Parameter] readonly string GitHubToken;
@@ -101,6 +92,7 @@ class Build : NukeBuild
         });
 
     Target NugetPublish => _ => _
+        .DependsOn(Compile)
         .Executes(() =>
         {
             SourceDirectory.GlobFiles("*.nupkg")
