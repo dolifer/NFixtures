@@ -21,24 +21,6 @@ A set of fixtures to use in integration tests.
 
 ## Getting started
 
-Add this into your `NuGet.config` to configure it to use [GitHub Packages](https://docs.github.com/en/packages/guides/configuring-dotnet-cli-for-use-with-github-packages)
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <packageSources>
-    <add key="github" value="https://nuget.pkg.github.com/dolifer/index.json" />
-  </packageSources>
-  <packageSourceCredentials>
-    <github>
-      <add key="Username" value="dolifer" />
-      <!-- This is my Personal Access Token, with `read:packages` permission only. -->
-      <add key="ClearTextPassword" value="cb1bef6d9d28ee33acf740ee4b89730ef79a2e91" />
-    </github>
-  </packageSourceCredentials>
-</configuration>
-```
-
 |PackageName| Description|
 | - | - |
 |**NFixtures.WebApi** | Contains [StartupFixture<T>](https://github.com/dolifer/NFixtures/blob/master/src/NFixtures.WebApi/StartupFixture.cs) that allows you to easiliy test your WebApi by passing your `Startup` |
