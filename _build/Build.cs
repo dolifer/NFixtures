@@ -57,6 +57,7 @@ class Build : NukeBuild
         {
             DotNetBuild(_ => _
                 .SetNoRestore(InvokedTargets.Contains(Restore))
+                .SetRepositoryUrl(GitRepository.HttpsUrl)
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
                 .SetAssemblyVersion(GitVersion.AssemblySemVer)
@@ -80,7 +81,7 @@ class Build : NukeBuild
             DotNetTest(_ => _
                 .SetConfiguration(Configuration)
                 .SetNoBuild(InvokedTargets.Contains(Compile))
-                .EnableNoRestore()
+                .SetNoRestore(InvokedTargets.Contains(Compile))
                 .ResetVerbosity()
                 .SetResultsDirectory(TestResultDirectory)
                 .EnableCollectCoverage()
@@ -101,6 +102,7 @@ class Build : NukeBuild
                 .SetProject(Solution)
                 .SetNoBuild(InvokedTargets.Contains(Compile))
                 .SetNoRestore(InvokedTargets.Contains(Compile))
+                .SetRepositoryUrl(GitRepository.HttpsUrl)
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(PackagesDirectory)
                 .SetVersion(GitVersion.NuGetVersionV2));
