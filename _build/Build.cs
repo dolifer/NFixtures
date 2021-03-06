@@ -20,8 +20,6 @@ using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
 [UnsetVisualStudioEnvironmentVariables]
 class Build : NukeBuild
 {
-    [Parameter] readonly string GitHubToken;
-
     public static int Main() => Execute<Build>(x => x.Compile);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
@@ -72,7 +70,8 @@ class Build : NukeBuild
     IEnumerable<Project> TestProjects => Solution.GetProjects("*Tests");
     static AbsolutePath CoverageReportDirectory => ArtifactsDirectory / "coverage-report";
 
-    [Parameter] string NugetApiUrl = "https://nuget.pkg.github.com/dolifer/index.json"; //default
+    [Parameter] string NugetApiUrl = "https://api.nuget.org/v3/index.json";
+    [Parameter] string NugetApiKey;
 
     Target Test => _ => _
         .DependsOn(Compile)
@@ -114,7 +113,8 @@ class Build : NukeBuild
         {
             DotNetNuGetPush(_ => _
                     .SetSource(NugetApiUrl)
-                    .SetApiKey(GitHubToken)
+                    .SetApiKey(NugetApiKey)
+                    .SetSkipDuplicate(true)
                     .CombineWith(PackagesDirectory.GlobFiles("*.*"), (_, v) => _
                         .SetTargetPath(v)),
                 degreeOfParallelism: 5,
