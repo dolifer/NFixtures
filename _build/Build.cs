@@ -3,6 +3,7 @@ using _build;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.Execution;
+using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
@@ -26,9 +27,10 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Solution] readonly Solution Solution;
-
+    [Required] [Solution] readonly Solution Solution;
     [Required] [GitVersion(Framework = "net5.0", NoFetch = true)] readonly GitVersion GitVersion;
+    [Required] [GitRepository] readonly GitRepository GitRepository;
+
     static AbsolutePath SourceDirectory => RootDirectory / "src";
     static AbsolutePath TestsDirectory => RootDirectory / "tests";
     static AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
@@ -54,19 +56,19 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetBuild(_ => _
+                .SetNoRestore(InvokedTargets.Contains(Restore))
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
                 .SetAssemblyVersion(GitVersion.AssemblySemVer)
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
-                .SetInformationalVersion(GitVersion.InformationalVersion)
-                .EnableNoRestore());
+                .SetInformationalVersion(GitVersion.InformationalVersion));
         });
 
-    [Partition(2)] readonly Partition TestPartition;
     static AbsolutePath TestResultDirectory => ArtifactsDirectory / "test-results";
+    static AbsolutePath PackagesDirectory => ArtifactsDirectory / "packages";
     static AbsolutePath CoverletResultDirectory => TestResultDirectory / "coverlet";
     static AbsolutePath JunitResultDirectory => TestResultDirectory / "junit";
-    IEnumerable<Project> TestProjects => TestPartition.GetCurrent(Solution.GetProjects("*Tests"));
+    IEnumerable<Project> TestProjects => Solution.GetProjects("*Tests");
     static AbsolutePath CoverageReportDirectory => ArtifactsDirectory / "coverage-report";
 
     [Parameter] string NugetApiUrl = "https://nuget.pkg.github.com/dolifer/index.json"; //default
@@ -91,20 +93,30 @@ class Build : NukeBuild
                     .SetCoverletOutput($"{CoverletResultDirectory}/{v.Name}.xml")));
         });
 
-    Target NugetPublish => _ => _
+    Target Pack => _ => _
         .DependsOn(Compile)
         .Executes(() =>
         {
-            SourceDirectory.GlobFiles("*.nupkg")
-                .NotEmpty()
-                .ForEach(x =>
-                {
-                    DotNetNuGetPush(s => s
-                        .SetTargetPath(x)
-                        .SetSource(NugetApiUrl)
-                        .SetApiKey(GitHubToken)
-                    );
-                });
+            DotNetPack(_ => _
+                .SetProject(Solution)
+                .SetNoBuild(InvokedTargets.Contains(Compile))
+                .SetNoRestore(InvokedTargets.Contains(Compile))
+                .SetConfiguration(Configuration)
+                .SetOutputDirectory(PackagesDirectory)
+                .SetVersion(GitVersion.NuGetVersionV2));
+        });
+
+    Target Publish => _ => _
+        .DependsOn(Pack)
+        .Executes(() =>
+        {
+            DotNetNuGetPush(_ => _
+                    .SetSource(NugetApiUrl)
+                    .SetApiKey(GitHubToken)
+                    .CombineWith(PackagesDirectory.GlobFiles("*.nupkg"), (_, v) => _
+                        .SetTargetPath(v)),
+                degreeOfParallelism: 5,
+                completeOnFailure: true);
         });
 
     Target Coverage => _ => _

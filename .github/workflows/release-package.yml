@@ -13,6 +13,6 @@ jobs:
         with:
           dotnet-version: '5.0.x'
       - name: Run NugetPublish
-        run: ./build.sh NugetPublish
+        run: ./build.sh publish
         env:
           GitHubToken: ${{ secrets.GITHUB_TOKEN }}
