@@ -1,8 +1,14 @@
 <Project>
   <PropertyGroup>
     <Product>NFixtures</Product>
+    <Description>A set of fixtures to use in integration tests</Description>
     <Company>Denis Olifer</Company>
+    <Authors>Denis Olifer</Authors>
     <Copyright>Copyright $([System.DateTime]::Now.Year) Maintainers of NFixtures</Copyright>
+    <PackageTags>continious-integration testing tools xunit fixtures</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://nfixtures.olifer.org</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
@@ -33,8 +39,21 @@
 
   <PropertyGroup Condition="'$(IsPackable)' != 'False'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
+
+  <ItemGroup  Condition="'$(IsPackable)' != 'False'">
+    <None Include="$(SolutionDir)\icon.png" Pack="true" PackagePath="" Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.msbuild" Version="3.0.3" />
