@@ -9,7 +9,7 @@ NFixtures
 
 A set of fixtures to use in integration tests.
 
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/dolifer/NFixtures/master/LICENSE.txt)
+[![GitHub license](https://img.shields.io/badge/license-mit-blue.svg)](https://raw.githubusercontent.com/dolifer/NFixtures/master/LICENSE)
 
 </div>
 
@@ -17,7 +17,7 @@ A set of fixtures to use in integration tests.
 
 ## License
 
-- NFixtures is licensed under the [Apache License, Version 2.0](https://opensource.org/licenses/Apache-2.0)
+- NFixtures is licensed under the [MIT License](https://opensource.org/licenses/MIT)
 
 ## Getting started
 
