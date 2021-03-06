@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\NFixtures.xUnit.MassTransit\NFixtures.xUnit.MassTransit.csproj" />
-      <ProjectReference Include="..\..\NFixtures.xUnit\NFixtures.xUnit.csproj" />
+      <ProjectReference Include="..\..\src\NFixtures.xUnit.MassTransit\NFixtures.xUnit.MassTransit.csproj" />
+      <ProjectReference Include="..\..\src\NFixtures.xUnit\NFixtures.xUnit.csproj" />
     </ItemGroup>
 </Project>

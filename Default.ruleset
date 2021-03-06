@@ -141,6 +141,8 @@
     <!-- A closing parenthesis should never be preceded by whitespace -->
     <Rule Id="SA1300" Action="None" />
     <!-- Element should begin with an uppercase letter -->
+    <Rule Id="SA1200" Action="None" />
+    <!-- Using directive should appear within a namespace declaration -->
   </Rules>
   <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
     <Rule Id="CA1812" Action="Info" />

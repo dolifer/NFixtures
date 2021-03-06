@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <CodeAnalysisRuleSet>..\Custom.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Custom.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
 </Project>

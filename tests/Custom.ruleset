@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Tests Rules" ToolsVersion="10.0">
+  <Include Path="../Default.ruleset" Action="Default" />
+  <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+    <Rule Id="CA1707" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA1400" Action="None" />
+    <!-- Element should declare an access modifier -->
+    <Rule Id="SA1600" Action="None" />
+    <!-- Elements should be documented -->
+    <Rule Id="SA1101" Action="None" />
+    <!-- Prefix local calls with this -->
+    <Rule Id="SA1204" Action="None" />
+    <!-- Static members should appear before non-static members -->
+    <Rule Id="SA1401" Action="None" />
+    <!-- Field should be private -->
+    <Rule Id="SA1200" Action="None" />
+    <!-- Using directive should appear within a namespace declaration -->
+  </Rules>
+</RuleSet>

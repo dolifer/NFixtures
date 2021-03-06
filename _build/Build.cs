@@ -115,7 +115,7 @@ class Build : NukeBuild
             DotNetNuGetPush(_ => _
                     .SetSource(NugetApiUrl)
                     .SetApiKey(GitHubToken)
-                    .CombineWith(PackagesDirectory.GlobFiles("*.nupkg"), (_, v) => _
+                    .CombineWith(PackagesDirectory.GlobFiles("*.*"), (_, v) => _
                         .SetTargetPath(v)),
                 degreeOfParallelism: 5,
                 completeOnFailure: true);
