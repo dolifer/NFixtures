@@ -11,7 +11,6 @@ using Nuke.Common.Tools.Coverlet;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.ReportGenerator;
-using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
@@ -29,15 +28,20 @@ class Build : NukeBuild
     [Required] [GitVersion(Framework = "net5.0", NoFetch = true)] readonly GitVersion GitVersion;
     [Required] [GitRepository] readonly GitRepository GitRepository;
 
-    static AbsolutePath SourceDirectory => RootDirectory / "src";
-    static AbsolutePath TestsDirectory => RootDirectory / "tests";
     static AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
+    static AbsolutePath TestResultDirectory => ArtifactsDirectory / "test-results";
+    static AbsolutePath PackagesDirectory => ArtifactsDirectory / "packages";
+    static AbsolutePath CoverletResultDirectory => TestResultDirectory / "coverlet";
+    static AbsolutePath JunitResultDirectory => TestResultDirectory / "junit";
+    IEnumerable<Project> TestProjects => Solution.GetProjects("*Tests");
+    static AbsolutePath CoverageReportDirectory => ArtifactsDirectory / "coverage-report";
+
+    [Parameter] readonly string NugetApiUrl = "https://api.nuget.org/v3/index.json";
+    [Parameter] readonly string NugetApiKey;
 
     Target Clean => _ => _
         .Executes(() =>
         {
-            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
             EnsureCleanDirectory(ArtifactsDirectory);
         });
 
@@ -62,16 +66,6 @@ class Build : NukeBuild
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
                 .SetInformationalVersion(GitVersion.InformationalVersion));
         });
-
-    static AbsolutePath TestResultDirectory => ArtifactsDirectory / "test-results";
-    static AbsolutePath PackagesDirectory => ArtifactsDirectory / "packages";
-    static AbsolutePath CoverletResultDirectory => TestResultDirectory / "coverlet";
-    static AbsolutePath JunitResultDirectory => TestResultDirectory / "junit";
-    IEnumerable<Project> TestProjects => Solution.GetProjects("*Tests");
-    static AbsolutePath CoverageReportDirectory => ArtifactsDirectory / "coverage-report";
-
-    [Parameter] string NugetApiUrl = "https://api.nuget.org/v3/index.json";
-    [Parameter] string NugetApiKey;
 
     Target Test => _ => _
         .DependsOn(Compile)
@@ -111,14 +105,18 @@ class Build : NukeBuild
         .DependsOn(Pack)
         .Executes(() =>
         {
-            DotNetNuGetPush(_ => _
+            void PushPackages(string pattern)
+            {
+                DotNetNuGetPush(_ => _
                     .SetSource(NugetApiUrl)
                     .SetApiKey(NugetApiKey)
                     .SetSkipDuplicate(true)
-                    .CombineWith(PackagesDirectory.GlobFiles("*.*"), (_, v) => _
-                        .SetTargetPath(v)),
-                degreeOfParallelism: 5,
-                completeOnFailure: true);
+                    .CombineWith(PackagesDirectory.GlobFiles(pattern), (_, v) => _
+                        .SetTargetPath(v)));
+            }
+
+            PushPackages("*.nupkg");
+            PushPackages("*.snupkg");
         });
 
     Target Coverage => _ => _
