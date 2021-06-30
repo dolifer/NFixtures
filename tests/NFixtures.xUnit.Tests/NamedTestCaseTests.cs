@@ -10,7 +10,7 @@ namespace NFixtures.xUnit.Tests
         public void Operator_Test()
         {
             // arrange
-            var testCase = new NamedTestCase<int>(42);
+            var testCase = new LabeledTestCase<int>(42);
 
             // act
             object[] values = testCase;
@@ -25,7 +25,7 @@ namespace NFixtures.xUnit.Tests
         public void Serialization_Validation()
         {
             // arrange
-            var testCase = new NamedTestCase<object>();
+            var testCase = new LabeledTestCase<object>();
 
             // act & assert
             Assert.Throws<ArgumentNullException>("info", () => testCase.Serialize(null));
@@ -39,7 +39,7 @@ namespace NFixtures.xUnit.Tests
         public void WithName_Throws_ArgumentException(string name)
         {
             // arrange
-            var testCase = new NamedTestCase<object>();
+            var testCase = new LabeledTestCase<object>();
 
             // act && assert
             Assert.Throws<ArgumentException>("name", () => testCase.WithName(name));
@@ -49,7 +49,7 @@ namespace NFixtures.xUnit.Tests
         public void Default_Naming_Convention_NoValue()
         {
             // arrange
-            var testCase = new NamedTestCase<object>();
+            var testCase = new LabeledTestCase<object>();
 
             // assert
             Assert.NotNull(testCase.Name);
@@ -62,7 +62,7 @@ namespace NFixtures.xUnit.Tests
         public void Default_Naming_Convention_Int()
         {
             // arrange
-            var testCase = new NamedTestCase<int>(1);
+            var testCase = new LabeledTestCase<int>(1);
 
             // assert
             Assert.NotNull(testCase.Name);
@@ -75,7 +75,7 @@ namespace NFixtures.xUnit.Tests
         public void Default_Naming_Convention_Double()
         {
             // arrange
-            var testCase = new NamedTestCase<double>(1.2d);
+            var testCase = new LabeledTestCase<double>(1.2d);
 
             // assert
             Assert.NotNull(testCase.Name);
@@ -88,7 +88,7 @@ namespace NFixtures.xUnit.Tests
         public void Default_Naming_Convention_Decimal()
         {
             // arrange
-            var testCase = new NamedTestCase<decimal>(1.2m);
+            var testCase = new LabeledTestCase<decimal>(1.2m);
 
             // assert
             Assert.NotNull(testCase.Name);
@@ -101,7 +101,7 @@ namespace NFixtures.xUnit.Tests
         public void Default_Naming_Convention_Long()
         {
             // arrange
-            var testCase = new NamedTestCase<long>(123L);
+            var testCase = new LabeledTestCase<long>(123L);
 
             // assert
             Assert.NotNull(testCase.Name);
@@ -114,7 +114,7 @@ namespace NFixtures.xUnit.Tests
         public void Default_Naming_Convention_Value()
         {
             // arrange
-            var testCase = new NamedTestCase<object>(null, "name");
+            var testCase = new LabeledTestCase<object>(null, "name");
 
             // assert
             Assert.NotNull(testCase.Name);
@@ -127,7 +127,7 @@ namespace NFixtures.xUnit.Tests
         public void WithName_Sets_Value()
         {
             // arrange
-            var testCase = new NamedTestCase<object>().WithName("name");
+            var testCase = new LabeledTestCase<object>().WithName("name");
 
             // assert
             Assert.NotNull(testCase.Name);
@@ -143,7 +143,7 @@ namespace NFixtures.xUnit.Tests
         public void Default_Naming_Value_Conventions(object value, string expectedName)
         {
             // arrange
-            var testCase = new NamedTestCase<object>(value);
+            var testCase = new LabeledTestCase<object>(value);
 
             // assert
             Assert.Equal(expectedName, testCase.Name);
@@ -154,7 +154,7 @@ namespace NFixtures.xUnit.Tests
 
         [Theory]
         [MemberData(nameof(SingleValueTestCases))]
-        public void Single_Value_Test_Cases(NamedTestCase<int> t)
+        public void Single_Value_Test_Cases(LabeledTestCase<int> t)
         {
             Assert.NotNull(t);
             Assert.NotEmpty($"{t.Parameters}");
@@ -162,9 +162,9 @@ namespace NFixtures.xUnit.Tests
 
         public static IEnumerable<object[]> SingleValueTestCases()
         {
-            static NamedTestCase<int> GetTestCase(int value, string name)
+            static LabeledTestCase<int> GetTestCase(int value, string name)
             {
-                return new NamedTestCase<int>(value)
+                return new LabeledTestCase<int>(value)
                     .WithName(name);
             }
 

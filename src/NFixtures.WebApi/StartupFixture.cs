@@ -31,6 +31,7 @@ namespace NFixtures.WebApi
                     x.ClearProviders();
                     x.AddConsole();
                 });
+
                 ConfigureTestServices(services);
             });
         }

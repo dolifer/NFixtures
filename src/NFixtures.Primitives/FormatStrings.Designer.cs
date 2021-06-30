@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NFixtures.WebApi {
+namespace NFixtures.Primitives {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace NFixtures.WebApi {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NFixtures.WebApi.FormatStrings", typeof(FormatStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NFixtures.Primitives.FormatStrings", typeof(FormatStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,42 +57,6 @@ namespace NFixtures.WebApi {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Basic {0}.
-        /// </summary>
-        internal static string Authorization_Basic {
-            get {
-                return ResourceManager.GetString("Authorization.Basic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bearer {0}.
-        /// </summary>
-        internal static string Authorization_Bearer {
-            get {
-                return ResourceManager.GetString("Authorization.Bearer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IdClaim not found!.
-        /// </summary>
-        internal static string Authorization_ClaimNotFound {
-            get {
-                return ResourceManager.GetString("Authorization.ClaimNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No user found with id {id}.
-        /// </summary>
-        internal static string Authorization_UserNotFound {
-            get {
-                return ResourceManager.GetString("Authorization.UserNotFound", resourceCulture);
             }
         }
         

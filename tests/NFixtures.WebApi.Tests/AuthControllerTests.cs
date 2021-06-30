@@ -1,9 +1,7 @@
-using System;
 using System.Net;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.IdentityModel.Tokens;
+using NFixtures.Primitives;
 using NFixtures.WebApi.Extensions;
 using NFixtures.WebApi.Tests.Fixtures;
 using Xunit;
@@ -39,17 +37,8 @@ namespace NFixtures.WebApi.Tests
         public async Task Get_Returns_Ok()
         {
             // arrange
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new(ClaimTypes.NameIdentifier, "123"),
-                    new(ClaimTypes.Email, "email@server.com")
-                }),
-                Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(1)),
-            };
-
-            var client = _fixture.CreateDefaultClient().WithJwtBearer(tokenDescriptor);
+            var identity = new TestIdentityBuilder(_fixture.FirstUser).Build();
+            var client = _fixture.CreateDefaultClient().WithJwtBearer(identity);
 
             // act
             var response = await client.GetAsync("/api/values");

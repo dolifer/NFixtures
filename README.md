@@ -23,9 +23,10 @@ A set of fixtures to use in integration tests.
 
 |PackageName| Description|
 | - | - |
-|**NFixtures.WebApi** | Contains [StartupFixture<T>](https://github.com/dolifer/NFixtures/blob/master/src/NFixtures.WebApi/StartupFixture.cs) that allows you to easiliy test your WebApi by passing your `Startup` |
-|**NFixtures.xUnit** | Gives you a [NamedTestCase](https://github.com/dolifer/NFixtures/blob/master/src/NFixtures.xUnit/NamedTestCase.cs) that adds support of named test cases |
-  
+|**NFixtures.WebApi** | Contains [StartupFixture<T>](https://github.com/dolifer/NFixtures/blob/master/src/NFixtures.WebApi/StartupFixture.cs) that allows you to easily test your WebApi by passing your `Startup` |
+|**NFixtures.xUnit** | Gives you a [LabeledTestCase](https://github.com/dolifer/NFixtures/blob/master/src/NFixtures.xUnit/LabeledTestCase.cs) that allows you to give a name for your test cases |
+|**NFixtures.Primitives** | Contains a [TestUser](https://github.com/dolifer/NFixtures/blob/master/src/NFixtures.Primitives/TestUser.cs) |
+
 ## StartupFixture
 
 ```csharp
@@ -68,6 +69,26 @@ public class ControllerTests : IClassFixture<ApiFixture>
         // assert
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+    }
+}
+```
+
+## TestUser
+
+```csharp
+public class ApiFixture : StartupFixture<TestStartup>
+{
+    public ApiFixture()
+    {
+        FirstUser = new TestUser("123", "email@server.com");
+    }
+    
+    public TestUser FirstUser { get; }
+        
+    protected override void ConfigureTestServices(IServiceCollection services)
+    {
+        services
+            .ConfigureTestAuthentication(FirstUser); // enable authentication for our TestUser
     }
 }
 ```

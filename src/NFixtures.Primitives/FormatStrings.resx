@@ -3,7 +3,6 @@
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:element name="root" msdata:IsDataSet="true">
-
     </xsd:element>
   </xsd:schema>
   <resheader name="resmimetype">
@@ -18,19 +17,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Authorization.Basic" xml:space="preserve">
-    <value>Basic {0}</value>
-  </data>
-  <data name="Authorization.Bearer" xml:space="preserve">
-    <value>Bearer {0}</value>
-  </data>
   <data name="ValueCanNotBeNull" xml:space="preserve">
     <value>Value cannot be null or whitespace.</value>
-  </data>
-  <data name="Authorization.ClaimNotFound" xml:space="preserve">
-    <value>IdClaim not found!</value>
-  </data>
-  <data name="Authorization.UserNotFound" xml:space="preserve">
-    <value>No user found with id {id}</value>
   </data>
 </root>

@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFixtures.xUnit.Tests", "te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFixtures.WebApi.Tests", "tests\NFixtures.WebApi.Tests\NFixtures.WebApi.Tests.csproj", "{4935B2B8-C61B-4630-846C-D0D8ACADB47B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFixtures.Primitives", "src\NFixtures.Primitives\NFixtures.Primitives.csproj", "{B33DCDDD-F654-46F0-8E69-834DD413C1EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,7 @@ Global
 		{3890CDAC-C4CB-4F50-90E8-8C1E56424509} = {1F6D922F-C292-4703-B0FD-52FDC3474356}
 		{74285DAE-7AA4-463B-B0B5-9C85F5EE6D88} = {C5A3C54C-FA2C-4F84-8273-F226A7F51C87}
 		{4935B2B8-C61B-4630-846C-D0D8ACADB47B} = {C5A3C54C-FA2C-4F84-8273-F226A7F51C87}
+		{B33DCDDD-F654-46F0-8E69-834DD413C1EE} = {3E6C0468-CD22-471D-BFF0-BEA3A7DA0230}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9B3F3EC3-1485-4E0B-A7BC-3C96312973A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -59,5 +62,9 @@ Global
 		{4935B2B8-C61B-4630-846C-D0D8ACADB47B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4935B2B8-C61B-4630-846C-D0D8ACADB47B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4935B2B8-C61B-4630-846C-D0D8ACADB47B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B33DCDDD-F654-46F0-8E69-834DD413C1EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B33DCDDD-F654-46F0-8E69-834DD413C1EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B33DCDDD-F654-46F0-8E69-834DD413C1EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B33DCDDD-F654-46F0-8E69-834DD413C1EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

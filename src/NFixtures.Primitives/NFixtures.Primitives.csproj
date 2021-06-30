@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="FormatStrings.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>FormatStrings.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="FormatStrings.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>FormatStrings.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+</Project>

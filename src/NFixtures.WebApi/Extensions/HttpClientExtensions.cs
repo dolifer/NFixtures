@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Net.Http;
+using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using NFixtures.WebApi.Configuration;
@@ -94,22 +95,22 @@ namespace NFixtures.WebApi.Extensions
         /// Configures http client to use JWT auth.
         /// </summary>
         /// <param name="client">The http client.</param>
-        /// <param name="securityToken">The JWT token.</param>
+        /// <param name="identity">The test identity.</param>
         /// <returns>Configured http client with a Basic authentication header.</returns>
         /// <exception cref="ArgumentNullException">client or securityToken is null.</exception>
-        public static HttpClient WithJwtBearer(this HttpClient client, SecurityToken securityToken)
+        public static HttpClient WithJwtBearer(this HttpClient client, ClaimsIdentity identity)
         {
             if (client is null)
             {
                 throw new ArgumentNullException(nameof(client));
             }
 
-            if (securityToken is null)
+            if (identity is null)
             {
-                throw new ArgumentNullException(nameof(securityToken));
+                throw new ArgumentNullException(nameof(identity));
             }
 
-            var jwtToken = JwtTokenHelper.GetToken(securityToken);
+            var jwtToken = JwtTokenHelper.GetToken(identity);
 
             return client.WithJwtBearer(jwtToken);
         }

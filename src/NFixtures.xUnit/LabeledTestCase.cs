@@ -5,25 +5,25 @@ using Xunit.Abstractions;
 namespace NFixtures.xUnit
 {
     /// <summary>
-    /// Named test case with typed parameters.
+    /// Labeled test case with typed parameters.
     /// </summary>
     /// <typeparam name="TParameters">Typed test case parameters.</typeparam>
-    public class NamedTestCase<TParameters> : IXunitSerializable
+    public class LabeledTestCase<TParameters> : IXunitSerializable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NamedTestCase{TParameters}"/> class.
+        /// Initializes a new instance of the <see cref="LabeledTestCase{TParameters}"/> class.
         /// </summary>
-        public NamedTestCase()
+        public LabeledTestCase()
         {
             Name = typeof(TParameters).Name;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NamedTestCase{TParameters}"/> class.
+        /// Initializes a new instance of the <see cref="LabeledTestCase{TParameters}"/> class.
         /// </summary>
         /// <param name="parameters">Typed parameters.</param>
         /// <param name="name">The name of test case.</param>
-        public NamedTestCase(TParameters parameters, string name = null)
+        public LabeledTestCase(TParameters parameters, string name = null)
         {
             Parameters = parameters;
             Name = string.IsNullOrWhiteSpace(name)
@@ -46,7 +46,7 @@ namespace NFixtures.xUnit
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>A test case instance with updated name.</returns>
-        public NamedTestCase<TParameters> WithName(string name)
+        public LabeledTestCase<TParameters> WithName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -84,12 +84,12 @@ namespace NFixtures.xUnit
         /// <inheritdoc/>
         public override string ToString() => Name;
 
-        public static implicit operator object[](NamedTestCase<TParameters> src) => src?.FromNamedTestCase();
+        public static implicit operator object[](LabeledTestCase<TParameters> src) => src?.FromNamedTestCase();
 
         /// <summary>
         /// Creates an array of objects from current instance.
         /// </summary>
         /// <returns>XUnit test case array of objects.</returns>
-        public object[] FromNamedTestCase() => new object[] {this};
+        private object[] FromNamedTestCase() => new object[] {this};
     }
 }

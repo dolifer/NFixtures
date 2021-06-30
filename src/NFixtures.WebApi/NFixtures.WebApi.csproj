@@ -4,8 +4,9 @@
         <IsPackable>true</IsPackable>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.4" />
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.7" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.1" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="Serilog.Sinks.XUnit" Version="2.0.4" />
     </ItemGroup>
@@ -21,5 +22,8 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>FormatStrings.resx</DependentUpon>
       </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\NFixtures.Primitives\NFixtures.Primitives.csproj" />
     </ItemGroup>
 </Project>
