@@ -139,7 +139,9 @@ namespace NFixtures.xUnit.Tests
         [Theory]
         [InlineData(1, "1")]
         [InlineData("abc", "abc")]
-        [InlineData(null, "null")]
+        [InlineData(null, "<null>")]
+        [InlineData(true, "True")]
+        [InlineData(false, "False")]
         public void Default_Naming_Value_Conventions(object value, string expectedName)
         {
             // arrange
@@ -158,6 +160,25 @@ namespace NFixtures.xUnit.Tests
         {
             Assert.NotNull(t);
             Assert.NotEmpty($"{t.Parameters}");
+        }
+
+        private class TestFormattable : IFormattable
+        {
+            public string ToString(string format, IFormatProvider formatProvider)
+                => "TestFormattable";
+        }
+
+        [Fact]
+        public void TestCase_Uses_IFormattableAsString()
+        {
+            // arrange
+            var testCase = new LabeledTestCase<object>(new TestFormattable());
+
+            // act
+            var result = testCase.ToString();
+
+            // assert
+            Assert.Equal("TestFormattable", result);
         }
 
         public static IEnumerable<object[]> SingleValueTestCases()

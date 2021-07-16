@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using Xunit;
@@ -24,16 +23,7 @@ namespace NFixtures.WebApi
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureAppConfiguration(ConfigureAppConfiguration);
-            builder.ConfigureTestServices(services =>
-            {
-                services.AddLogging(x =>
-                {
-                    x.ClearProviders();
-                    x.AddConsole();
-                });
-
-                ConfigureTestServices(services);
-            });
+            builder.ConfigureTestServices(ConfigureTestServices);
         }
 
         /// <summary>

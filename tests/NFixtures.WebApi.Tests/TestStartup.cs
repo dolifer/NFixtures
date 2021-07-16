@@ -19,7 +19,7 @@ namespace NFixtures.WebApi.Tests
                 x.SaveToken = true;
             });
 
-            services.AddControllers(_ => { });
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

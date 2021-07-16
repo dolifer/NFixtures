@@ -8,7 +8,7 @@ namespace NFixtures.WebApi.Helpers
     /// <summary>
     /// Helper class to build JWT tokens.
     /// </summary>
-    internal static class JwtTokenHelper
+    public static class JwtTokenHelper
     {
         private static readonly JwtSecurityTokenHandler _securityTokenHandler = new();
 

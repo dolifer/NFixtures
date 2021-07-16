@@ -13,17 +13,17 @@ namespace NFixtures.Primitives
         public const string IdClaim = nameof(IdClaim);
 
         /// <summary>
-        /// Gets the user name
+        /// Gets the user name.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        /// Gets the user email
+        /// Gets the user email.
         /// </summary>
         public string Email { get; }
 
         /// <summary>
-        /// Gets the user identifier
+        /// Gets the user identifier.
         /// </summary>
         public Guid Id { get; }
 
