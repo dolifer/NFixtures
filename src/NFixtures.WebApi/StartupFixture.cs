@@ -26,18 +26,12 @@ namespace NFixtures.WebApi
             builder.ConfigureTestServices(ConfigureTestServices);
         }
 
-        /// <summary>
-        /// Allows configuring the <see cref="IConfigurationBuilder"/> that will construct an <see cref="IConfiguration"/>.
-        /// </summary>
-        /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to configure.</param>
+        /// <inheritdoc cref="IWebHostBuilder.ConfigureAppConfiguration"/>
         protected virtual void ConfigureAppConfiguration(IConfigurationBuilder configurationBuilder)
         {
         }
 
-        /// <summary>
-        /// Configures the test service provider.
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/> to configure.</param>
+        /// <inheritdoc cref="Microsoft.AspNetCore.TestHost.WebHostBuilderExtensions.ConfigureTestServices"/>
         protected virtual void ConfigureTestServices(IServiceCollection services)
         {
         }
@@ -59,6 +53,6 @@ namespace NFixtures.WebApi
         public virtual Task InitializeAsync() => Task.CompletedTask;
 
         /// <inheritdoc/>
-        public virtual Task DisposeAsync() => Task.CompletedTask;
+        async Task IAsyncLifetime.DisposeAsync() => await DisposeAsync();
     }
 }

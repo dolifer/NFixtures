@@ -17,7 +17,7 @@ namespace NFixtures.WebApi.Tests.Fixtures
         public TestUser FirstUser { get; }
 
         protected override IWebHostBuilder CreateWebHostBuilder()
-        => WebHost.CreateDefaultBuilder()
+            => WebHost.CreateDefaultBuilder()
                 .UseStartup<TestStartup>()
                 .UseSerilog();
 

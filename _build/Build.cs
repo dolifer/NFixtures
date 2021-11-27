@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using _build;
 using Nuke.Common;
-using Nuke.Common.CI;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
@@ -25,7 +24,7 @@ class Build : NukeBuild
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [Required] [Solution] readonly Solution Solution;
-    [Required] [GitVersion(Framework = "net5.0", NoFetch = true)] readonly GitVersion GitVersion;
+    [Required] [GitVersion(Framework = "net6.0", NoFetch = true)] readonly GitVersion GitVersion;
     [Required] [GitRepository] readonly GitRepository GitRepository;
 
     static AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
@@ -82,7 +81,7 @@ class Build : NukeBuild
                 .SetExcludeByFile("*.Generated.cs")
                 .CombineWith(TestProjects, (_, v) => _
                     .SetProjectFile(v)
-                    .SetLogger(
+                    .SetLoggers(
                         $"junit;LogFilePath={JunitResultDirectory}/{v.Name}.xml;MethodFormat=Class;FailureBodyFormat=Verbose")
                     .SetCoverletOutput($"{CoverletResultDirectory}/{v.Name}.xml")));
         });
@@ -130,6 +129,6 @@ class Build : NukeBuild
                 .SetReports(CoverletResultDirectory / "*.xml")
                 .SetReportTypes(ReportTypes.HtmlInline_AzurePipelines, ReportTypes.Badges)
                 .SetTargetDirectory(CoverageReportDirectory)
-                .SetFramework("netcoreapp2.1"));
+                .SetFramework("net6.0"));
         });
 }

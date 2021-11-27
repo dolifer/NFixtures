@@ -9,6 +9,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/dolifer/NFixtures</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
@@ -19,11 +20,12 @@
   <PropertyGroup>
     <!-- Use the latest released C# language version -->
     <LangVersion>latest</LangVersion>
+    <MSBuildEnableWorkloadResolver>false</MSBuildEnableWorkloadResolver>
   </PropertyGroup>
 
   <!-- Sonar Analyzers configuration -->
   <ItemGroup>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.26.0.34506">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.32.0.39516">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
@@ -47,23 +49,24 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
-  <ItemGroup  Condition="'$(IsPackable)' != 'False'">
+  <ItemGroup Condition="'$(IsPackable)' != 'False'">
     <None Include="$(SolutionDir)\icon.png" Pack="true" PackagePath="" Visible="false" />
+    <None Include="$(SolutionDir)\README.md" Pack="true" PackagePath=""/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
   </ItemGroup>
 
   <!-- tests projects -->
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
-    <PackageReference Include="FluentAssertions" Version="5.10.3"/>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0"/>
+    <PackageReference Include="FluentAssertions" Version="6.2.0"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0"/>
     <PackageReference Include="xunit" Version="2.4.1"/>
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3"/>
     <PackageReference Include="JunitXml.TestLogger" Version="3.0.98"/>
-    <PackageReference Include="coverlet.msbuild" Version="3.0.3" />
-    <PackageReference Include="coverlet.collector" Version="3.0.3">
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
