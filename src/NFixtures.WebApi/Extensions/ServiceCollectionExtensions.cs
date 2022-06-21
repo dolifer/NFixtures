@@ -20,14 +20,25 @@ namespace NFixtures.WebApi.Extensions
         /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
         /// <param name="users">The collection of <see cref="TestUser"/> to use.</param>
         /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-        public static IServiceCollection ConfigureTestAuthentication(this IServiceCollection services, params TestUser[] users)
+        public static IServiceCollection ConfigureTestAuthentication(this IServiceCollection services, params TestUser[] users) 
+            => services.ConfigureTestAuthentication(JwtBearerDefaults.AuthenticationScheme, users);
+
+        /// <summary>
+        /// Configures <see cref="JwtBearerOptions"/> to allow any JWT token,
+        /// but success only for a given collection of <see cref="TestUser"/>.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+        /// <param name="schema">The name of the authentication schema.</param>
+        /// <param name="users">The collection of <see cref="TestUser"/> to use.</param>
+        /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
+        public static IServiceCollection ConfigureTestAuthentication(this IServiceCollection services, string schema, params TestUser[] users)
         {
             services
-                .PostConfigure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, o =>
+                .PostConfigure<JwtBearerOptions>(schema, o =>
                 {
                     o.TokenValidationParameters.SignatureValidator = (token, _) => new JwtSecurityToken(token);
-                    o.TokenValidationParameters.ValidAudience = "NFixture.Audience";
-                    o.TokenValidationParameters.ValidIssuer = "NFixture.Issuer";
+                    o.TokenValidationParameters.ValidateAudience = false;
+                    o.TokenValidationParameters.ValidateIssuer = false;
 
                     o.Events = new JwtBearerEvents
                     {

@@ -19,7 +19,7 @@ namespace NFixtures.WebApi.Tests.Fixtures
         protected override IWebHostBuilder CreateWebHostBuilder()
             => WebHost.CreateDefaultBuilder()
                 .UseStartup<TestStartup>()
-                .UseSerilog();
+                .ConfigureLogging(l => l.AddSerilog());
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {

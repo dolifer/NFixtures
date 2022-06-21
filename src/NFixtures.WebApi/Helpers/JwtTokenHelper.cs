@@ -60,8 +60,6 @@ namespace NFixtures.WebApi.Helpers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = identity,
-                Audience = "NFixture.Audience",
-                Issuer = "NFixture.Issuer",
                 Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(1)),
             };
 
