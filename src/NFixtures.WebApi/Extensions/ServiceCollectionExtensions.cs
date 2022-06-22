@@ -18,10 +18,9 @@ namespace NFixtures.WebApi.Extensions
         /// but success only for a given collection of <see cref="TestUser"/>.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
-        /// <param name="users">The collection of <see cref="TestUser"/> to use.</param>
         /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-        public static IServiceCollection ConfigureTestAuthentication(this IServiceCollection services, params TestUser[] users) 
-            => services.ConfigureTestAuthentication(JwtBearerDefaults.AuthenticationScheme, users);
+        public static IServiceCollection ConfigureTestAuthentication(this IServiceCollection services) 
+            => services.ConfigureTestAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
         /// <summary>
         /// Configures <see cref="JwtBearerOptions"/> to allow any JWT token,
@@ -29,40 +28,20 @@ namespace NFixtures.WebApi.Extensions
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
         /// <param name="schema">The name of the authentication schema.</param>
-        /// <param name="users">The collection of <see cref="TestUser"/> to use.</param>
         /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-        public static IServiceCollection ConfigureTestAuthentication(this IServiceCollection services, string schema, params TestUser[] users)
+        public static IServiceCollection ConfigureTestAuthentication(this IServiceCollection services, string schema)
         {
             services
                 .PostConfigure<JwtBearerOptions>(schema, o =>
                 {
-                    o.TokenValidationParameters.SignatureValidator = (token, _) => new JwtSecurityToken(token);
-                    o.TokenValidationParameters.ValidateAudience = false;
-                    o.TokenValidationParameters.ValidateIssuer = false;
-
-                    o.Events = new JwtBearerEvents
+                    o.TokenValidationParameters = new()
                     {
-                        OnTokenValidated = context =>
-                        {
-                            var token = context.SecurityToken as JwtSecurityToken;
-                            var claim = token?.Claims.FirstOrDefault(c => c.Type == TestUser.IdClaim);
-
-                            if (claim is null || !Guid.TryParse(claim.Value, out var id))
-                            {
-                                context.Fail(FormatStrings.Authorization_ClaimNotFound);
-                                return Task.CompletedTask;
-                            }
-
-                            if (users.Any(x => x.Id == id))
-                            {
-                                context.Success();
-                                return Task.CompletedTask;
-                            }
-
-                            context.Fail(string.Format(FormatStrings.Authorization_UserNotFound, id));
-
-                            return Task.CompletedTask;
-                        }
+                        IssuerSigningKeyResolver = null,
+                        SignatureValidator = (token, _) => new JwtSecurityToken(token),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        RequireSignedTokens = false,
+                        ValidateIssuerSigningKey = false
                     };
                 });
 

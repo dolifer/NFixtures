@@ -30,7 +30,7 @@ namespace NFixtures.WebApi.Tests.Fixtures
         protected override void ConfigureTestServices(IServiceCollection services)
         {
             services
-                .ConfigureTestAuthentication(FirstUser);
+                .ConfigureTestAuthentication();
         }
     }
 }
